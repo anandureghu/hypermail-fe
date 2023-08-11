@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { FileUploader } from "react-drag-drop-files";
 import { httpService } from "../service/httpService";
+import Button from "../components/Button";
+import { H2 } from "../components/common";
 
 const UploadArea = ({ next, prev }) => {
   const [state, setState] = useState({
@@ -38,9 +40,7 @@ const UploadArea = ({ next, prev }) => {
   return (
     <div>
       <div className="flex flex-col gap-5">
-        <h3 className="text-2xl font-semibold text-center gd-text-main">
-          Upload Base Details
-        </h3>
+        <H2 title={"Upload Base Details"} />
         <div>
           <label
             htmlFor="base-image-upload"
@@ -90,12 +90,7 @@ const UploadArea = ({ next, prev }) => {
         </div>
       </div>
       <div className="flex justify-end py-5">
-        <button
-          className="gd-main px-5 py-2 text-white rounded-[32px]"
-          onClick={uploadFiles}
-        >
-          Next
-        </button>
+        <Button onClick={uploadFiles} label={"Next"} />
       </div>
     </div>
   );
