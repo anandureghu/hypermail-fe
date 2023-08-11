@@ -3,25 +3,21 @@ import { FileUploader } from "react-drag-drop-files";
 import { httpService } from "../service/httpService";
 import Button from "../components/Button";
 import { H2 } from "../components/common";
+import { useDispatch, useSelector } from "react-redux";
+import { setFields, setFiles } from "../store/slice/appSlice";
 
 const UploadArea = ({ next, prev }) => {
-  const [state, setState] = useState({
-    image: null,
-    font: [],
-    data: null,
-  });
-
+  const dispatch = useDispatch();
+  const { files } = useSelector((state) => state.app);
   const handleFileUpload = (file, name) => {
-    setState((prevValue) => {
-      return { ...prevValue, [name]: file };
-    });
+    dispatch(setFiles({ files: { ...files, [name]: file } }));
   };
 
   const uploadFiles = () => {
     const formData = new FormData();
-    formData.append("image", state.image);
-    formData.append("data", state.data);
-    for (const font of state.font) {
+    formData.append("image", files.image);
+    formData.append("data", files.data);
+    for (const font of files.font) {
       formData.append("font", font);
     }
     httpService
@@ -30,13 +26,15 @@ const UploadArea = ({ next, prev }) => {
           "Content-Type": "multipart/form-data;",
         },
       })
-      .then(({ status }) => {
+      .then(({ status, data }) => {
         if (status === 200) {
           next();
+          const fields = data.data.fields;
+          dispatch(setFields({ fields }));
         }
       });
   };
-
+  console.log(files);
   return (
     <div>
       <div className="flex flex-col gap-5">
@@ -55,6 +53,7 @@ const UploadArea = ({ next, prev }) => {
             types={["JPG", "PNG"]}
             label="Upload base image"
             classes="mt-2"
+            fileOrFiles={files.image}
           />
         </div>
 
@@ -69,6 +68,7 @@ const UploadArea = ({ next, prev }) => {
             label="Upload fonts"
             multiple
             classes="mt-2"
+            fileOrFiles={files.font.length ? files.font : null}
           />
         </div>
 
@@ -86,6 +86,7 @@ const UploadArea = ({ next, prev }) => {
             label="Upload CSV data"
             types={["csv"]}
             classes="mt-2"
+            fileOrFiles={files.data}
           />
         </div>
       </div>

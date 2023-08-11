@@ -6,6 +6,7 @@ import { addText } from "../store/slice/configSlice";
 
 const ConfigArea = ({ prev }) => {
   const config = useSelector((state) => state.config);
+  const { fields } = useSelector((state) => state.app);
   const dispatch = useDispatch();
   return (
     <div>
@@ -22,7 +23,7 @@ const ConfigArea = ({ prev }) => {
         </div>
         {config.texts.map((text) => {
           return (
-            <div className="mb-5 border border-dashed border-2">
+            <div className="mb-5 border-dashed border-2">
               <div>
                 {/* <label htmlFor="key" className="">
                   Choose field name
@@ -33,7 +34,9 @@ const ConfigArea = ({ prev }) => {
                   className="w-full p-3 px-5 outline-none border-none bg-white mb-3"
                   placeholder="Choose a filed name from csv"
                 >
-                  <option value="">name</option>
+                  {fields.map((field) => {
+                    return <option value="filed">{field}</option>;
+                  })}
                 </select>
               </div>
 
