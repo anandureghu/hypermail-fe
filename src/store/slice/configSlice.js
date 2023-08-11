@@ -3,6 +3,13 @@ import { emptyText } from "../../utils/constants";
 
 const initialState = {
   texts: [],
+  file: {
+    nameKey: "",
+    index: "",
+  },
+  font: {
+    external: false,
+  },
 };
 
 const configSlice = createSlice({
@@ -16,9 +23,16 @@ const configSlice = createSlice({
       const { texts } = action.payload;
       state.texts = texts;
     },
+    setFile: (state, action) => {
+      const { key, value } = action.payload;
+      state.file = {
+        ...state.file,
+        [key]: value,
+      };
+    },
   },
   extraReducers: {},
 });
 
-export const { addText, setTexts } = configSlice.actions;
+export const { addText, setTexts, setFile } = configSlice.actions;
 export const ConfigReducer = configSlice.reducer;

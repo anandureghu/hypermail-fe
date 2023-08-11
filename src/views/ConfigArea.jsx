@@ -1,7 +1,7 @@
 import Button from "../components/Button";
 import { H2 } from "../components/common";
 import { useDispatch, useSelector } from "react-redux";
-import { addText, setTexts } from "../store/slice/configSlice";
+import { addText, setFile, setTexts } from "../store/slice/configSlice";
 import { useEffect } from "react";
 import { emptyText } from "../utils/constants";
 
@@ -35,8 +35,17 @@ const ConfigArea = ({ prev, next }) => {
     dispatch(setTexts({ texts: newTexts }));
   };
 
+  const handleFileConfChange = (e) => {
+    const key = e.target.name;
+    let value = e.target.value;
+    if (key === "index") value = e.target.checked;
+    dispatch(setFile({ key, value }));
+  };
+
   useEffect(() => {
-    dispatch(setTexts({ texts: [emptyText] }));
+    if (!config.texts.length) {
+      dispatch(setTexts({ texts: [emptyText] }));
+    }
   }, []);
 
   return (
@@ -61,6 +70,7 @@ const ConfigArea = ({ prev, next }) => {
                   id="key"
                   className="w-full p-3 px-5 outline-none border-none bg-white mb-3 drop-shadow"
                   onChange={(e) => handleTextsChange(e, i)}
+                  value={text.key}
                 >
                   <option value="" disabled selected>
                     Choose a filed name from csv
@@ -77,12 +87,14 @@ const ConfigArea = ({ prev, next }) => {
                     type="numbe"
                     placeholder="x"
                     name="x"
+                    value={text.position.x}
                     className="p-3 px-5  drop-shadow outline-none border-none"
                     onChange={(e) => handleTextsChange(e, i)}
                   />
                   <input
                     type="number"
                     name="y"
+                    value={text.position.y}
                     placeholder="y"
                     className="p-3 px-5  drop-shadow outline-none border-none"
                     onChange={(e) => handleTextsChange(e, i)}
@@ -91,6 +103,7 @@ const ConfigArea = ({ prev, next }) => {
                     type="number"
                     placeholder="max"
                     name="max"
+                    value={text.position.max}
                     className="p-3 px-5  drop-shadow outline-none border-none"
                     onChange={(e) => handleTextsChange(e, i)}
                   />
@@ -99,6 +112,34 @@ const ConfigArea = ({ prev, next }) => {
             </div>
           );
         })}
+      </div>
+
+      <div className="mb-5">
+        <h3 className="font-bold text-xl mb-3">Filename configuration</h3>
+        <select
+          name="nameKey"
+          id="nameKey"
+          className="w-full p-3 px-5 outline-none border-none bg-white mb-3 drop-shadow mt-3"
+          onChange={handleFileConfChange}
+          value={config.file.nameKey}
+        >
+          <option value="" disabled selected>
+            Choose file name key for generated files
+          </option>
+          {fields.map((field) => {
+            return <option value={field}>{field}</option>;
+          })}
+        </select>
+        <div className="flex gap-3 items-center">
+          <input
+            type="checkbox"
+            name="index"
+            id="index"
+            checked={config.file.index}
+            onChange={handleFileConfChange}
+          />
+          <label htmlFor="index">Use Index for filename generation</label>
+        </div>
       </div>
       <div className="flex justify-between">
         <Button onClick={prev} label="Prev" />
