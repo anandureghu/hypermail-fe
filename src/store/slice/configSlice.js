@@ -1,20 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
-
-const emptyText = {
-  key: "",
-  position: {
-    x: "",
-    y: "",
-    max: "",
-  },
-};
+import { emptyText } from "../../utils/constants";
 
 const initialState = {
-  texts: [
-    {
-      ...emptyText,
-    },
-  ],
+  texts: [],
 };
 
 const configSlice = createSlice({
@@ -22,11 +10,15 @@ const configSlice = createSlice({
   initialState,
   reducers: {
     addText: (state) => {
-      state.texts = [...state.texts, { ...emptyText }];
+      state.texts = [...state.texts, emptyText];
+    },
+    setTexts: (state, action) => {
+      const { texts } = action.payload;
+      state.texts = texts;
     },
   },
   extraReducers: {},
 });
 
-export const { addText } = configSlice.actions;
+export const { addText, setTexts } = configSlice.actions;
 export const ConfigReducer = configSlice.reducer;

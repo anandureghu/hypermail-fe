@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import { FileUploader } from "react-drag-drop-files";
 import { httpService } from "../service/httpService";
 import Button from "../components/Button";

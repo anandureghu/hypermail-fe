@@ -1,13 +1,44 @@
-import React, { useState } from "react";
 import Button from "../components/Button";
 import { H2 } from "../components/common";
 import { useDispatch, useSelector } from "react-redux";
-import { addText } from "../store/slice/configSlice";
+import { addText, setTexts } from "../store/slice/configSlice";
+import { useEffect } from "react";
+import { emptyText } from "../utils/constants";
 
-const ConfigArea = ({ prev }) => {
+const ConfigArea = ({ prev, next }) => {
   const config = useSelector((state) => state.config);
   const { fields } = useSelector((state) => state.app);
   const dispatch = useDispatch();
+
+  const handleTextsChange = (e, i) => {
+    const key = e.target.name;
+    const value = e.target.value;
+    let newTexts = [...config.texts];
+    const newText = { ...emptyText, ...newTexts[i] };
+    const newPosition = {};
+    if (key === "key") {
+      newText[key] = value;
+    } else {
+      newPosition[key] = value;
+    }
+    newText.position = {
+      ...newText.position,
+      ...newPosition,
+    };
+    for (let idx = 0; idx < newTexts.length; idx++) {
+      console.log(idx, i);
+      if (idx === i) {
+        newTexts[i] = newText;
+      }
+    }
+
+    dispatch(setTexts({ texts: newTexts }));
+  };
+
+  useEffect(() => {
+    dispatch(setTexts({ texts: [emptyText] }));
+  }, []);
+
   return (
     <div>
       <H2 title={"Add Configuration"} />
@@ -21,39 +52,57 @@ const ConfigArea = ({ prev }) => {
             +
           </button>
         </div>
-        {config.texts.map((text) => {
+        {config.texts.map((text, i) => {
           return (
-            <div className="mb-5 border-dashed border-2">
+            <div className="mb-5 border-dashed border-2 p-3">
               <div>
-                {/* <label htmlFor="key" className="">
-                  Choose field name
-                </label> */}
                 <select
                   name="key"
                   id="key"
-                  className="w-full p-3 px-5 outline-none border-none bg-white mb-3"
-                  placeholder="Choose a filed name from csv"
+                  className="w-full p-3 px-5 outline-none border-none bg-white mb-3 drop-shadow"
+                  onChange={(e) => handleTextsChange(e, i)}
                 >
+                  <option value="" disabled selected>
+                    Choose a filed name from csv
+                  </option>
                   {fields.map((field) => {
-                    return <option value="filed">{field}</option>;
+                    return <option value={field}>{field}</option>;
                   })}
                 </select>
               </div>
 
               <div>
-                {/* <label htmlFor="">Set Position</label> */}
                 <div className="flex gap-5">
-                  <input type="numbe" placeholder="x" className="p-3 px-5" />
-                  <input type="number" placeholder="y" className="p-3 px-5" />
-                  <input type="number" placeholder="max" className="p-3 px-5" />
+                  <input
+                    type="numbe"
+                    placeholder="x"
+                    name="x"
+                    className="p-3 px-5  drop-shadow outline-none border-none"
+                    onChange={(e) => handleTextsChange(e, i)}
+                  />
+                  <input
+                    type="number"
+                    name="y"
+                    placeholder="y"
+                    className="p-3 px-5  drop-shadow outline-none border-none"
+                    onChange={(e) => handleTextsChange(e, i)}
+                  />
+                  <input
+                    type="number"
+                    placeholder="max"
+                    name="max"
+                    className="p-3 px-5  drop-shadow outline-none border-none"
+                    onChange={(e) => handleTextsChange(e, i)}
+                  />
                 </div>
               </div>
             </div>
           );
         })}
       </div>
-      <div className="flex justify-end">
+      <div className="flex justify-between">
         <Button onClick={prev} label="Prev" />
+        <Button onClick={next} label="Next" />
       </div>
     </div>
   );
