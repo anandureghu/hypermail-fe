@@ -18,7 +18,18 @@ const TryArea = ({ prev, next }) => {
     <div>
       <H2 title={"Lets Try With a Random Data"} />
       <div className="w-full h-full p-10">
-        {image && <img src={image} alt="demo" className="object-contain w-full max-w-[800px] rounded-[32px]" />}
+        {!image && (
+          <p className="text-gray-400 animate-bounce text-center">
+            Generating...
+          </p>
+        )}
+        {image && (
+          <img
+            src={image}
+            alt="demo"
+            className="object-contain w-full max-w-[800px] rounded-[32px]"
+          />
+        )}
       </div>
       <div className="flex justify-between">
         <Button onClick={prev} label="Prev" />
