@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { emptyText } from "../../utils/constants";
+import { emptyFont, emptyText } from "../../utils/constants";
 
 const initialState = {
   texts: [],
@@ -9,6 +9,7 @@ const initialState = {
   },
   font: {
     external: false,
+    fonts: [],
   },
 };
 
@@ -30,9 +31,20 @@ const configSlice = createSlice({
         [key]: value,
       };
     },
+    addFont: (state) => {
+      state.font = {
+        ...state.font,
+        fonts: [...state.font.fonts, emptyFont],
+      };
+    },
+    setFont: (state, action) => {
+      const { font } = action.payload;
+      state.font = font;
+    },
   },
   extraReducers: {},
 });
 
-export const { addText, setTexts, setFile } = configSlice.actions;
+export const { addText, setTexts, setFile, addFont, setFont } =
+  configSlice.actions;
 export const ConfigReducer = configSlice.reducer;

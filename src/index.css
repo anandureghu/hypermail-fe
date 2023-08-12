@@ -29,3 +29,34 @@ body {
 .gd-main {
   background-image: linear-gradient(to right, #8e2de2, #4a00e0);
 }
+
+.gd-main-sub {
+  transition: all 0.15s ease-in;
+  background-image: linear-gradient(to top, #cfd9df 0%, #e2ebf0 100%);
+  color: gray;
+}
+
+.gd-main-sub:hover {
+  background-image: linear-gradient(to right, #8e2de2, #4a00e0);
+  color: white;
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background-image: linear-gradient(to top, #cfd9df 0%, #e2ebf0 100%);
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: gray;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #8e2de2;
+}

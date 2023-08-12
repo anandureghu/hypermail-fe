@@ -5,4 +5,15 @@ export const emptyText = {
     y: "",
     max: "",
   },
+  font: {
+    family: "",
+    align: "",
+    size: "",
+    color: "",
+  },
+};
+
+export const emptyFont = {
+  family: "",
+  fileName: "",
 };

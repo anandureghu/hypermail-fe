@@ -19,8 +19,8 @@ const Home = () => {
   };
 
   return (
-    <div className="px-[3%] pb-5 h-[calc(100vh-72px)]">
-      <div className="steps flex gap-3 items-start justify-center">
+    <div className="px-[3%] pb-5 h-[calc(100vh-72px)] transition-all">
+      <div className="steps flex gap-3 items-start justify-center transition-all">
         {steps.map((step, i) => {
           return (
             <span
@@ -42,7 +42,7 @@ const Home = () => {
         })}
       </div>
       <div className="flex items-center justify-center h-full flex-col gap-10">
-        <div className="bg-slate-50 rounded-[32px] drop-shadow-xl p-10">
+        <div className="bg-slate-50 rounded-[32px] drop-shadow-xl p-10 transition-all">
           {selectedStep === 0 && <UploadArea next={next} prev={prev} />}
           {selectedStep === 1 && <ConfigArea next={next} prev={prev} />}
           {selectedStep === 2 && <TryArea next={next} prev={prev} />}
