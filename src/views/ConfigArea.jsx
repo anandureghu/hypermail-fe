@@ -40,7 +40,6 @@ const ConfigArea = ({ prev, next }) => {
       ...newFont,
     };
     for (let idx = 0; idx < newTexts.length; idx++) {
-      console.log(idx, i);
       if (idx === i) {
         newTexts[i] = newText;
       }
@@ -227,7 +226,6 @@ const ConfigArea = ({ prev, next }) => {
           </div>
           <div>
             {config.font.fonts.map((font, i) => {
-              console.log(font);
               return (
                 <div className="flex gap-5 border-2 border-dashed p-3 my-3">
                   <input

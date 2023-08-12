@@ -5,7 +5,7 @@ const initialState = {
   texts: [],
   file: {
     nameKey: "",
-    index: "",
+    index: false,
   },
   font: {
     external: false,

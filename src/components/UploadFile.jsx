@@ -19,8 +19,6 @@ const UploadFile = () => {
     event.dataTransfer.setData("text/plain", event.target.id);
   };
 
-  console.log(files);
-
   return (
     <div
       className="upload-file"

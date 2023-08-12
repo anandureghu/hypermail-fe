@@ -20,7 +20,7 @@ const UploadArea = ({ next, prev }) => {
       formData.append("font", font);
     }
     httpService
-      .post("/upload", formData, {
+      .post("/images/upload", formData, {
         headers: {
           "Content-Type": "multipart/form-data;",
         },
@@ -33,7 +33,6 @@ const UploadArea = ({ next, prev }) => {
         }
       });
   };
-  console.log(files);
   return (
     <div>
       <div className="flex flex-col gap-5">
