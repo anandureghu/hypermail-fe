@@ -41,8 +41,16 @@ const Home = () => {
           );
         })}
       </div>
-      <div className="flex items-center justify-center h-full flex-col gap-10">
-        <div className="bg-slate-50 rounded-[32px] drop-shadow-xl p-10 transition-all">
+      <div
+        className={`flex items-center ${
+          selectedStep === 3 ? "justify-start" : "justify-start"
+        }  h-full flex-col gap-10 my-5`}
+      >
+        <div
+          className={`bg-slate-50 rounded-[32px] drop-shadow-xl p-10 transition-all ${
+            selectedStep === 3 ? "w-full" : ""
+          }`}
+        >
           {selectedStep === 0 && <UploadArea next={next} prev={prev} />}
           {selectedStep === 1 && <ConfigArea next={next} prev={prev} />}
           {selectedStep === 2 && <TryArea next={next} prev={prev} />}
