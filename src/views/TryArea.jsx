@@ -10,10 +10,15 @@ const TryArea = ({ prev, next }) => {
   useEffect(() => {
     httpService
       .post("/images/generate", config, { params: { demo: true } })
-      .then(({ data, status }) => {
-        setImage(data.data.links[0]);
+      .then(({ status }) => {
+        if (status === 201) {
+          httpService.get("/images/generated").then(({ data }) => {
+            setImage(Object.values(data.data)[0].fileLink);
+          });
+        }
       });
   }, [config]);
+  console.log(image);
   return (
     <div>
       <H2 title={"Lets Try With a Random Data"} />

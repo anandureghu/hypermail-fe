@@ -6,7 +6,7 @@ function App() {
   return (
     <div className="App">
       <Navbar />
-      {all_routes}
+      <div>{all_routes}</div>
     </div>
   );
 }

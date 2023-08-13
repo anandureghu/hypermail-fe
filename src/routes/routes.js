@@ -1,6 +1,6 @@
 import { useRoutes } from "react-router-dom";
 import Home from "../pages/Home";
-import GeneratePage from "../pages/GeneratePage";
+import EmailSendPage from "../pages/EmailSendPage";
 
 const AllRoutes = () => {
   return useRoutes([
@@ -9,8 +9,8 @@ const AllRoutes = () => {
       element: <Home />,
     },
     {
-      path: "/generate",
-      element: <GeneratePage />,
+      path: "/email",
+      element: <EmailSendPage />,
     },
   ]);
 };
